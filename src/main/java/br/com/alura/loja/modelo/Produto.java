@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +24,7 @@ public class Produto {
 	private BigDecimal preco;
 	private LocalDate dataCadastro = LocalDate.now();
 
-	@ManyToOne  
+	@ManyToOne(fetch = FetchType.LAZY)//fetch lazy serve para deixar a consulta mais performatica, com isso a jpa não irá carregar joins desnecessario  
 	private Categoria categoria;
 	
 	public Produto() {

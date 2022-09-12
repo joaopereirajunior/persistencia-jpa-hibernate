@@ -2,7 +2,9 @@ package br.com.alura.loja.modelo;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,11 +18,12 @@ public class ItemPedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
+	@Column(name = "preco_unitario")
 	private BigDecimal precoUnitario;
 	private int quantidade;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)//fetch lazy serve para deixar a consulta mais performatica, com isso a jpa não irá carregar joins desnecessario
 	private Pedido pedido;
 
 	@ManyToOne
@@ -67,5 +70,7 @@ public class ItemPedido {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+	
+	
 
 }

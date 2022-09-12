@@ -18,7 +18,6 @@ public class Cliente {
 	
 	//JPA EXIGE UM CONSTRUTOR VAZIO
 	public Cliente() {
-		super();
 	}
 
 	public Cliente(String nome, Integer cpf) {

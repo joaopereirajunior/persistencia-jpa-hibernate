@@ -1,6 +1,7 @@
 package br.com.alura.loja.teste;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -14,6 +15,7 @@ import br.com.alura.loja.modelo.ItemPedido;
 import br.com.alura.loja.modelo.Pedido;
 import br.com.alura.loja.modelo.Produto;
 import br.com.alura.loja.util.JPAUtil;
+import br.com.alura.loja.vo.RelatorioVendasVo;
 
 public class CadastroDePedido {
 
@@ -40,6 +42,28 @@ public class CadastroDePedido {
 		pedidoDao.cadastrar(pedido);
 
 		em.getTransaction().commit();
+		
+		BigDecimal valorTotalPedido = pedidoDao.valorTotalVendido();
+		System.out.println("valor total do pedido é: " + valorTotalPedido);
+		
+		List<Object[]> relatorio = pedidoDao.relatorioDeVendas();
+		for (Object[] objects : relatorio) {
+			System.out.println(objects[0]);
+			System.out.println(objects[1]);
+			System.out.println(objects[2]);		
+			
+		}
+		
+		//RETORNANDO O RELATORIO VIA CLASSE
+		
+		List<RelatorioVendasVo> relatorioVo = pedidoDao.relatorioDeVendasDevolvendoUmaClasse();
+		relatorioVo.forEach(r -> System.out.println(r));
+		
+		//TESTANDO NamedQuery
+		List<Pedido> listaPedido = pedidoDao.buscarPedidoPorNamedQuerie();
+		
+		listaPedido.forEach(l -> System.out.println("NamedQuery" +l));
+		
 		em.close();
 
 		System.out.println("###INSERIDO REGISTRO COM SUCESSO");
